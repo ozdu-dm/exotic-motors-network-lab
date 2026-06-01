@@ -1,0 +1,20 @@
+# Credenciales y secretos
+.env
+*.pem
+*.key
+*.p12
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+env/
+
+# Imágenes de vehículos (no se distribuyen con el repo)
+webapp/static/img/*.jpg
+webapp/static/img/*.jpeg
+webapp/static/img/*.png
+
+# OS
+.DS_Store
+Thumbs.db

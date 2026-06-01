@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card bg-black border border-secondary shadow-lg p-5 animate-fade-up">
+            <div class="text-center mb-4">
+                <i class="fas fa-fingerprint gold-accent display-3 mb-3"></i>
+                <h3 class="text-white fw-bold tracking-wide">ACCESO <span class="gold-accent">VIP</span></h3>
+                <p class="text-secondary small text-uppercase">Solo personal autorizado de EXOTIC MOTORS</p>
+            </div>
+            
+            {% if error %}
+            <div class="alert alert-danger border-danger bg-dark text-danger text-center">
+                <i class="fas fa-exclamation-triangle me-2"></i> {{ error }}
+            </div>
+            {% endif %}
+            
+            <form method="POST">
+               <div class="mb-4">
+                    <label class="form-label text-secondary small text-uppercase">ID de Empleado (Usuario)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fas fa-user"></i></span>
+                        <input type="text" name="usuario" class="form-control bg-dark border-secondary text-white" required autofocus>
+                    </div>
+                </div>
+                
+                <div class="mb-5">
+                    <label class="form-label text-secondary small text-uppercase">Código de Seguridad (Clave)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fas fa-lock"></i></span>
+                        <input type="password" name="password" class="form-control bg-dark border-secondary text-white" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-gold w-100 py-3 fw-bold text-uppercase tracking-wider shadow">
+                    Desbloquear Sistema
+                </button>
+            </form>
+            <div class="text-center mt-4">
+                <a href="/" class="text-secondary text-decoration-none small"><i class="fas fa-arrow-left me-1"></i> Volver al concesionario</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

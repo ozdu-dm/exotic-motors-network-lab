@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center my-5 py-5 border border-dark rounded bg-black shadow-lg">
+    <i class="fas fa-gem gold-accent display-1 mb-3"></i>
+    <h1 class="display-3 fw-bold mt-2">La Excelencia en <span class="gold-accent">Movilidad</span></h1>
+    <p class="lead text-secondary mt-3 mx-auto" style="max-width: 750px;">
+        Descubre nuestra colección exclusiva. Vehículos inspeccionados, certificados y listos para entregarte la experiencia de conducción que mereces.
+    </p>
+    <div class="d-flex justify-content-center gap-3 mt-4">
+        <a href="/inventario" class="btn btn-gold btn-lg px-5 py-3 shadow">
+            <i class="fas fa-search me-2"></i> Explorar Stock
+        </a>
+       
+    </div>
+</div>
+
+<div class="row bg-gold-gradient rounded text-dark p-5 my-5 shadow-lg align-items-center" style="background: linear-gradient(135deg, #f1d57e 0%, #d4af37 100%); border: 3px solid #b5952f;">
+    <div class="col-md-2 text-center text-md-start">
+        <i class="fas fa-star display-1 opacity-50"></i>
+    </div>
+    <div class="col-md-7 text-center text-md-start">
+        <h2 class="fw-bold m-0 text-uppercase tracking-wide" style="letter-spacing: 1px;">Oferta Destacada de la Semana</h2>
+        <p class="m-0 fs-5 mt-1">Condiciones de financiación exclusivas en nuestra selección de <strong class="text-white text-shadow-sm">Ferrari &amp; Porsche</strong>. ¡Solo hasta fin de mes!</p>
+    </div>
+    <div class="col-md-3 text-center text-md-end mt-3 mt-md-0">
+        <a href="/inventario" class="btn btn-black btn-lg px-4 py-2 rounded-pill fw-bold text-uppercase fs-6">
+            Ver Ofertas
+        </a>
+    </div>
+</div>
+
+<div class="my-5 pt-4">
+    <h3 class="text-center text-white fw-bold mb-5">Experiencias de nuestros Clientes VIP</h3>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card card-premium p-4 h-100 text-center">
+                <i class="fas fa-quote-left gold-accent fs-2 mb-3"></i>
+                <p class="text-secondary small italic">"Trato impecable. Compré mi Porsche Macan y el proceso fue transparente y rápido. Totalmente recomendados."</p>
+                <div class="mt-auto pt-3 border-top border-dark">
+                    <h6 class="fw-bold text-white m-0">Carlos V.</h6>
+                    <small class="text-muted">Propietario Porsche Macan</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-premium p-4 h-100 text-center">
+                <i class="fas fa-quote-left gold-accent fs-2 mb-3"></i>
+                <p class="text-secondary small italic">"Adquirimos un McLaren 720S para nuestra dirección ejecutiva. Gestión impecable, entrega en tiempo récord y financiación a medida."</p>
+                <div class="mt-auto pt-3 border-top border-dark">
+                    <h6 class="fw-bold text-white m-0">TechGroup Ibérica S.L.</h6>
+                    <small class="text-muted">Flota corporativa</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-premium p-4 h-100 text-center">
+                <i class="fas fa-quote-left gold-accent fs-2 mb-3"></i>
+                <p class="text-secondary small italic">"El panel de admin me permite gestionar las reservas de forma rápida. Una web moderna y funcional."</p>
+                <div class="mt-auto pt-3 border-top border-dark">
+                    <h6 class="fw-bold text-white m-0">David, Dept. Ventas</h6>
+                    <small class="text-muted">Administrador Web</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

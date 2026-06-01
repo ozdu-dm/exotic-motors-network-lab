@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    
+    <div class="text-center animate-fade-up mb-4">
+        <h2 class="fw-bold text-white tracking-wide mb-2">CATÁLOGO DE <span class="gold-accent">VEHÍCULOS</span></h2>
+        <p class="text-secondary">Selecciona la marca para ver disponibilidad y modelos exclusivos</p>
+    </div>
+
+    <div class="d-flex justify-content-center flex-wrap gap-3 mb-5 mt-4 animate-fade-up">
+        
+        <a href="/inventario" class="btn btn-filter {% if not request.args.get('marca') and not request.args.get('estado') %}active{% endif %}">
+            <i class="fas fa-th-large me-2"></i>Todos
+        </a>
+        
+        <a href="/inventario?marca=Ferrari" class="btn btn-filter {% if request.args.get('marca') == 'Ferrari' %}active{% endif %}">
+            <i class="fas fa-horse-head me-2"></i>Ferrari
+        </a>
+        <a href="/inventario?marca=Lamborghini" class="btn btn-filter {% if request.args.get('marca') == 'Lamborghini' %}active{% endif %}">
+            <i class="fas fa-bullseye me-2"></i>Lamborghini
+        </a>
+        <a href="/inventario?marca=Porsche" class="btn btn-filter {% if request.args.get('marca') == 'Porsche' %}active{% endif %}">
+            <i class="fas fa-tachometer-alt me-2"></i>Porsche
+        </a>
+        <a href="/inventario?marca=McLaren" class="btn btn-filter {% if request.args.get('marca') == 'McLaren' %}active{% endif %}">
+            <i class="fas fa-flag-checkered me-2"></i>McLaren
+        </a>
+        
+        <a href="/inventario?marca=Audi" class="btn btn-filter {% if request.args.get('marca') == 'Audi' %}active{% endif %}">
+            <i class="fas fa-car me-2"></i>Audi
+        </a>
+        <a href="/inventario?marca=Volkswagen" class="btn btn-filter {% if request.args.get('marca') == 'Volkswagen' %}active{% endif %}">
+            <i class="fas fa-car-side me-2"></i>VW
+        </a>
+        <a href="/inventario?marca=SEAT" class="btn btn-filter {% if request.args.get('marca') == 'SEAT' %}active{% endif %}">
+            <i class="fas fa-car-side me-2"></i>SEAT
+        </a>
+        <a href="/inventario?marca=Peugeot" class="btn btn-filter {% if request.args.get('marca') == 'Peugeot' %}active{% endif %}">
+            <i class="fas fa-car-side me-2"></i>Peugeot
+        </a>
+        
+        <a href="/inventario?estado=0KM" class="btn btn-filter {% if request.args.get('estado') == '0KM' %}active{% endif %}">
+            <i class="fas fa-certificate me-2"></i>0 KM
+        </a>
+    </div>
+
+    <div class="row g-4 text-start">
+        {% if coches %}
+            {% for coche in coches %}
+            <div class="col-md-4">
+                <div class="card bg-black border border-secondary shadow h-100 overflow-hidden" style="border-radius: 12px;">
+                    <img src="{{ coche.img }}" class="card-img-top" alt="{{ coche.marca }} {{ coche.modelo }}" style="height: 240px; object-fit: cover;">
+                    
+                    <div class="card-body p-4 d-flex flex-column">
+                        <h4 class="fw-bold text-white mb-1">{{ coche.marca }}</h4>
+                        <p class="text-secondary fs-5 mb-3">{{ coche.modelo }}</p>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4 mt-auto">
+                            <p class="gold-accent fw-bold fs-4 m-0">
+                                {{ "{:,.0f}".format(coche.precio).replace(',', '.') if coche.precio else 'Consultar' }} €
+                            </p>
+                            
+                            {% if coche.km == 0 %}
+                                <span class="badge bg-success text-white py-1 px-2 border border-success"><i class="fas fa-star me-1"></i>0 KM</span>
+                            {% endif %}
+                        </div>
+
+                        <a href="/coche/{{ coche.id }}" class="btn btn-reserva-oro w-100 fw-bold py-2 text-uppercase shadow-sm text-decoration-none text-center">
+                            <i class="fas fa-info-circle me-2"></i> Ver Vehículo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center mt-4">
+                <div class="alert bg-dark border-secondary py-5" style="border-radius: 12px;">
+                    <i class="fas fa-search fs-1 mb-3 d-block text-secondary"></i>
+                    <h4 class="text-white">No hay vehículos disponibles</h4>
+                    <p class="text-muted m-0">No hemos encontrado resultados para esta marca en nuestro catálogo actual.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .bg-black { background-color: #000 !important; }
+    .gold-accent { color: #d4af37 !important; }
+    
+    /* Botones de filtro */
+    .btn-filter {
+        background-color: #111;
+        color: #888;
+        border: 1px solid #333;
+        border-radius: 30px;
+        padding: 10px 24px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+        text-decoration: none; 
+    }
+    .btn-filter:hover {
+        border-color: #d4af37;
+        color: #d4af37;
+        background-color: #000;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+    }
+    .btn-filter.active {
+        background-color: #d4af37;
+        color: #000;
+        border-color: #d4af37;
+        font-weight: 700;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Tarjetas de coche */
+    .card { transition: transform 0.3s ease, border-color 0.3s ease; }
+    .card:hover { transform: translateY(-5px); border-color: #d4af37 !important; }
+    
+    /* Botón de solicitar reserva */
+    .btn-reserva-oro {
+        background-color: #d4af37;
+        color: #000;
+        border: none;
+        transition: all 0.3s ease;
+    }
+    .btn-reserva-oro:hover {
+        background-color: #f3c746;
+        color: #000;
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+</style>
+{% endblock %}

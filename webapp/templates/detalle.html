@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mt-4">
+    <a href="/inventario" class="text-secondary text-decoration-none mb-4 d-inline-block">← Volver al inventario</a>
+    
+    <div class="row g-5">
+        <div class="col-lg-7">
+            <img src="{{ coche.img }}" class="img-fluid rounded shadow-lg w-100 mb-4" style="border: 1px solid #333;" alt="{{ coche.modelo }}">
+            
+            <div class="card bg-dark border-secondary p-4 mt-4 shadow">
+                <h4 class="gold-accent mb-3"><i class="me-2">🧮</i> Simulador de Leasing Premium</h4>
+                <p class="text-secondary small">Calcula tu cuota mensual estimada (TIN 4.5%)</p>
+                
+                <div class="mb-3">
+                    <label class="form-label text-light d-flex justify-content-between">
+                        <span>Entrada Inicial:</span>
+                        <strong id="valorEntrada">20.000 €</strong>
+                    </label>
+                    <input type="range" class="form-range" id="rangoEntrada" min="0" max="{{ coche.precio // 2 }}" step="5000" value="20000">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label text-light d-flex justify-content-between">
+                        <span>Plazo:</span>
+                        <strong id="valorMeses">48 Meses</strong>
+                    </label>
+                    <input type="range" class="form-range" id="rangoMeses" min="12" max="72" step="12" value="48">
+                </div>
+
+                <div class="p-3 bg-black border border-secondary rounded text-center">
+                    <h5 class="text-secondary mb-1">Cuota Mensual Estimada</h5>
+                    <h2 class="text-white fw-bold m-0" id="cuotaFinal">0 € / mes</h2>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-5">
+            <h5 class="text-uppercase text-secondary tracking-wide mb-1">{{ coche.marca }}</h5>
+            <h1 class="display-4 fw-bold mb-3">{{ coche.modelo }}</h1>
+            <h2 class="gold-accent mb-4">{{ "{:,.0f}".format(coche.precio).replace(',', '.') }} €</h2>
+            
+            <div class="bg-black p-4 rounded border border-secondary mb-4 shadow">
+                <h4 class="mb-4 text-white border-bottom border-dark pb-2">Especificaciones Técnicas</h4>
+                <div class="row mb-3"><div class="col-5 text-secondary">Motor</div><div class="col-7 text-white fw-bold">{{ coche.motor }}</div></div>
+                <div class="row mb-3"><div class="col-5 text-secondary">Aceleración</div><div class="col-7 text-white fw-bold">{{ coche.aceleracion }}</div></div>
+                <div class="row mb-3"><div class="col-5 text-secondary">Tracción</div><div class="col-7 text-white fw-bold">{{ coche.traccion }}</div></div>
+                <div class="row"><div class="col-5 text-secondary">Kilometraje</div><div class="col-7 text-white fw-bold">{{ coche.km }} km</div></div>
+            </div>
+
+            <div class="mb-3">
+                <a href="/reserva/{{ coche.id }}" class="btn btn-gold w-100 py-3 text-uppercase fw-bold fs-6 shadow-lg">
+                    <i class="fas fa-key me-2"></i> Reservar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const precioCoche = {{ coche.precio }};
+    const rangoEntrada = document.getElementById('rangoEntrada');
+    const valorEntrada = document.getElementById('valorEntrada');
+    const rangoMeses = document.getElementById('rangoMeses');
+    const valorMeses = document.getElementById('valorMeses');
+    const cuotaFinal = document.getElementById('cuotaFinal');
+
+    function calcularCuota() {
+        let entrada = parseInt(rangoEntrada.value);
+        let meses = parseInt(rangoMeses.value);
+
+        valorEntrada.innerText = entrada.toLocaleString('es-ES') + " €";
+        valorMeses.innerText = meses + " Meses";
+
+        if (entrada === 0) {
+            cuotaFinal.innerText = "⚠ Introduce una entrada mínima";
+            cuotaFinal.style.color = "#e67e22";
+            return;
+        }
+        cuotaFinal.style.color = "";
+
+        let capitalPendiente = precioCoche - entrada;
+        let interesTotal = capitalPendiente * 0.045 * (meses / 12);
+        let cuota = (capitalPendiente + interesTotal) / meses;
+
+        cuotaFinal.innerText = Math.round(cuota).toLocaleString('es-ES') + " € / mes";
+    }
+
+    rangoEntrada.addEventListener('input', calcularCuota);
+    rangoMeses.addEventListener('input', calcularCuota);
+    calcularCuota(); // Calcular al cargar
+</script>
+{% endblock %}

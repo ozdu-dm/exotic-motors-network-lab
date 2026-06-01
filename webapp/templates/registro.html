@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 animate-fade-up">
+        <div class="card bg-black border border-secondary p-4 shadow-lg" style="border-radius: 15px;">
+            <div class="text-center mb-4">
+                <i class="fas fa-user-plus gold-accent display-4 mb-2"></i>
+                <h3 class="fw-bold text-white tracking-wide">REGISTRO <span class="gold-accent">VIP</span></h3>
+                <p class="text-secondary small">Date de alta para vincular tus solicitudes y activar alertas</p>
+            </div>
+
+            {% if error %}
+                <div class="alert alert-danger bg-dark text-danger border-danger small py-2 text-center">
+                    <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
+                </div>
+            {% endif %}
+
+            <form method="POST" action="/registro">
+                <input type="hidden" name="next" value="{{ next or '' }}">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-secondary small fw-bold">NOMBRE COMPLETO</label>
+                        <input type="text" name="nombre" class="form-control bg-black border-secondary text-white" placeholder="Ej: Oscar Martinez" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-secondary small fw-bold">DNI</label>
+                        <input type="text" name="dni" class="form-control bg-black border-secondary text-white" placeholder="Ej: 12345678X" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-secondary small fw-bold">TELÉFONO</label>
+                        <input type="text" name="telefono" class="form-control bg-black border-secondary text-white" placeholder="Ej: 600123456" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-secondary small fw-bold">EMAIL NOTIFICACIONES</label>
+                        <input type="email" name="email" class="form-control bg-black border-secondary text-white" placeholder="ejemplo@correo.com" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-secondary small fw-bold">ESTABLECE TU CONTRASEÑA</label>
+                    <input type="password" name="password" id="passwordInput" class="form-control bg-black border-secondary text-white" placeholder="Mínimo 8 caracteres y 1 número" required oninput="evaluarPassword(this.value)">
+                    <div class="mt-2">
+                        <div class="progress" style="height: 6px; background:#222;">
+                            <div id="barraFuerza" class="progress-bar" style="width:0%; transition: width 0.3s, background-color 0.3s;"></div>
+                        </div>
+                        <small id="textoFuerza" class="text-muted mt-1 d-block"></small>
+                    </div>
+                </div>
+
+                <button type="submit" id="btnRegistro" class="btn btn-gold w-100 py-2 fw-bold shadow" disabled>CREAR CUENTA PRIVADA</button>
+            </form>
+
+<script>
+function evaluarPassword(pw) {
+    const barra  = document.getElementById('barraFuerza');
+    const texto  = document.getElementById('textoFuerza');
+    const btn    = document.getElementById('btnRegistro');
+    const tieneNum = /\d/.test(pw);
+    const len = pw.length;
+
+    let pct = 0, color = '#dc3545', msg = '';
+
+    if (len === 0) {
+        msg = '';
+    } else if (len < 8 || !tieneNum) {
+        pct = 33; color = '#dc3545';
+        msg = len < 8 ? `Faltan ${8 - len} caracteres` : 'Añade al menos 1 número';
+    } else if (len < 12) {
+        pct = 66; color = '#ffc107';
+        msg = 'Contraseña aceptable';
+    } else {
+        pct = 100; color = '#28a745';
+        msg = 'Contraseña fuerte';
+    }
+
+    barra.style.width = pct + '%';
+    barra.style.backgroundColor = color;
+    texto.textContent = msg;
+    texto.style.color = color;
+    btn.disabled = !(len >= 8 && tieneNum);
+}
+</script>
+
+            <div class="text-center mt-4">
+                <p class="text-secondary small m-0">¿Ya tienes cuenta? <a href="/login_cliente" class="gold-accent fw-bold text-decoration-none">Inicia sesión</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

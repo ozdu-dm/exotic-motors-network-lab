@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5 animate-fade-up">
+        <div class="card bg-black border border-secondary p-4 shadow-lg" style="border-radius: 15px;">
+            <div class="text-center mb-4">
+                <i class="fas fa-user-shield gold-accent display-4 mb-2"></i>
+                <h3 class="fw-bold text-white tracking-wide">ACCESO DE <span class="gold-accent">CLIENTES</span></h3>
+                <p class="text-secondary small">Introduce tus credenciales para gestionar tus superdeportivos</p>
+            </div>
+
+            {% if error %}
+                <div class="alert alert-danger bg-dark text-danger border-danger small py-2 text-center">
+                    <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
+                </div>
+            {% endif %}
+
+            <form method="POST" action="/login_cliente">
+                <input type="hidden" name="next" value="{{ next or '' }}">
+                <div class="mb-3">
+                    <label class="form-label text-secondary small fw-bold">EMAIL DE REGISTRO</label>
+                    <div class="input-group shadow-sm">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fas fa-envelope"></i></span>
+                        <input type="email" name="email" class="form-control bg-black border-secondary text-white" placeholder="ejemplo@correo.com" required autofocus>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-secondary small fw-bold">CONTRASEÑA</label>
+                    <div class="input-group shadow-sm">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fas fa-lock"></i></span>
+                        <input type="password" name="password" class="form-control bg-black border-secondary text-white" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-gold w-100 py-2 fw-bold tracking-wide shadow">INICIAR SESIÓN</button>
+            </form>
+
+            <div class="text-center mt-4">
+                <p class="text-secondary small m-0">¿Primera vez aquí? <a href="/registro{% if next %}?next={{ next }}{% endif %}" class="gold-accent fw-bold text-decoration-none">Crea tu cuenta VIP</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-black { background-color: #000 !important; }
+    .gold-accent { color: #d4af37 !important; }
+    .btn-gold { background-color: #d4af37; color: #000; border: none; }
+    .btn-gold:hover { background-color: #b8962e; color: #000; }
+</style>
+{% endblock %}
