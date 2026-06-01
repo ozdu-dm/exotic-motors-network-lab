@@ -13,7 +13,7 @@
 
 > Infraestructura de red empresarial completa desplegada sobre hardware físico Cisco y Fortinet,
 > virtualización Proxmox, servicios Microsoft y exposición cloud en AWS.
-> Proyecto final del ciclo formativo ASIR — Aula 27.
+> Proyecto final del ciclo formativo ASIR.
 
 ---
 
