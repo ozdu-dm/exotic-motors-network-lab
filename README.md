@@ -206,7 +206,7 @@ roles de directorio asignados por usuario (administrador de grupos, lector globa
 
 ## Equipo
 
-Proyecto desarrollado por 4 estudiantes de ASIR en el Aula 27.
+Proyecto desarrollado por 4 estudiantes de ASIR.
 
 ---
 
